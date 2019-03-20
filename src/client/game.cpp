@@ -2425,7 +2425,7 @@ void Game::updateCameraOrientation(CameraOrientation *cam, float dtime)
 		v2s32 center(driver->getScreenSize().Width / 2, driver->getScreenSize().Height / 2);
 		v2s32 dist = input->getMousePos() - center;
 
-		if (m_invert_mouse || camera->getCameraMode() == CAMERA_MODE_THIRD_FRONT) {
+		if (m_invert_mouse || camera->getCameraMode() == CAMERA_MODE_FRONT) {
 			dist.Y = -dist.Y;
 		}
 
@@ -2942,8 +2942,8 @@ void Game::updateCamera(u32 busy_time, f32 dtime)
 
 		camera->toggleCameraMode();
 
-		playercao->setVisible(camera->getCameraMode() > CAMERA_MODE_FIRST);
-		playercao->setChildrenVisible(camera->getCameraMode() > CAMERA_MODE_FIRST);
+		playercao->setVisible(camera->getCameraMode() != CAMERA_MODE_FIRST);
+		playercao->setChildrenVisible(camera->getCameraMode() != CAMERA_MODE_FIRST);
 	}
 
 	float full_punch_interval = playeritem_toolcap.full_punch_interval;
@@ -3041,7 +3041,7 @@ void Game::processPlayerInteraction(f32 dtime, bool show_hud, bool show_debug)
 		// Shoot from player head, no bobbing
 		shootline.start = camera->getHeadPosition();
 		break;
-	case CAMERA_MODE_THIRD_FRONT:
+	case CAMERA_MODE_FRONT:
 		shootline.start = camera->getHeadPosition();
 		// prevent player pointing anything in front-view
 		d = 0;
@@ -3903,7 +3903,7 @@ void Game::updateFrame(ProfilerGraph *graph, RunStats *stats, f32 dtime,
 			(camera->getCameraMode() == CAMERA_MODE_FIRST));
 	bool draw_crosshair = (
 			(player->hud_flags & HUD_FLAG_CROSSHAIR_VISIBLE) &&
-			(camera->getCameraMode() != CAMERA_MODE_THIRD_FRONT));
+			(camera->getCameraMode() != CAMERA_MODE_FRONT));
 #ifdef HAVE_TOUCHSCREENGUI
 	try {
 		draw_crosshair = !g_settings->getBool("touchtarget");

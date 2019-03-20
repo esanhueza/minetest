@@ -69,7 +69,7 @@ const ToClientCommandHandler toClientCommandTable[TOCLIENT_NUM_MSG_TYPES] =
 	{ "TOCLIENT_CSM_RESTRICTION_FLAGS",    TOCLIENT_STATE_CONNECTED, &Client::handleCommand_CSMRestrictionFlags }, // 0x2A
 	{ "TOCLIENT_PLAYER_SPEED",             TOCLIENT_STATE_CONNECTED, &Client::handleCommand_PlayerSpeed }, // 0x2B
 	{ "TOCLIENT_MEDIA_PUSH",               TOCLIENT_STATE_CONNECTED, &Client::handleCommand_MediaPush }, // 0x2C
-	null_command_handler,
+	{ "TOCLIENT_CAMERA_MODES",             TOCLIENT_STATE_CONNECTED, &Client::handleCommand_CameraModes }, // 0x2D
 	null_command_handler,
 	{ "TOCLIENT_CHAT_MESSAGE",             TOCLIENT_STATE_CONNECTED, &Client::handleCommand_ChatMessage }, // 0x2F
 	null_command_handler, // 0x30
