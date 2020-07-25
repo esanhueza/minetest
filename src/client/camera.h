@@ -22,9 +22,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "irrlichttypes_extrabloated.h"
 #include "inventory.h"
 #include "client/tile.h"
-#include "player.h"
 #include <ICameraSceneNode.h>
 #include <ISceneNode.h>
+#include "script/common/c_types.h"
 #include <list>
 
 class LocalPlayer;
@@ -48,6 +48,8 @@ struct Nametag {
 	video::SColor nametag_color;
 	v3f nametag_pos;
 };
+
+enum CameraMode {CAMERA_MODE_FIRST, CAMERA_MODE_THIRD, CAMERA_MODE_THIRD_FRONT, CAMERA_MODE_NULL};
 
 /*
 	Client camera class, manages the player and camera scene nodes, the viewing distance
@@ -166,7 +168,6 @@ public:
 	void drawNametags();
 
 	inline void addArmInertia(f32 player_yaw);
-
 private:
 	// Nodes
 	scene::ISceneNode *m_playernode = nullptr;

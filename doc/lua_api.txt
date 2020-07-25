@@ -6343,13 +6343,13 @@ object you are working with still exists.
     * `modes` is a table containing the following fields:
       ```lua
       {
-          "first" = true,
-          "third" = true,
-          "third_front" = true
+          first = true,
+          third = true,
+          front = true
       }
       ```
-    * Calling `set_camera_modes` without any table is shorthand for enabling
-      all camera modes (default).
+    * Calling `set_camera_modes` without any table or valid camera mode value 
+    is shorthand for enabling all camera modes (default).
 * `get_camera_modes()`: Returns a table of camera modes usable by the player
   as in `set_camera_modes`.
 

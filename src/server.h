@@ -23,7 +23,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "map.h"
 #include "hud.h"
 #include "gamedef.h"
-#include "player.h"
 #include "serialization.h" // For SER_FMT_VER_INVALID
 #include "content/mods.h"
 #include "inventorymanager.h"
@@ -39,6 +38,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "serverenvironment.h"
 #include "clientiface.h"
 #include "chatmessage.h"
+#include "client/camera.h"
 #include <string>
 #include <list>
 #include <map>

@@ -1618,8 +1618,6 @@ void Client::handleCommand_CameraModes(NetworkPacket *pkt)
 	*pkt >> serialized_modes;
 	std::set<CameraMode> modes;
 
-	errorstream << "\thandleCommand_CameraModes | " << serialized_modes << std::endl;
-
 	LocalPlayer *player = m_env.getLocalPlayer();
 	if (!player)
 		return;

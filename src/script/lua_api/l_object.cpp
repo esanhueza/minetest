@@ -2209,26 +2209,26 @@ int ObjectRef::l_set_camera_modes(lua_State *L)
 	if (!player)
 		return 0;
 
-	if (!lua_istable(L, 2))
-		return 0;
-
-	errorstream << "\tl_set_camera_modes" << std::endl;
-
 	std::set<CameraMode> modes;
 
 	lua_pushnil(L);
-	while (lua_next(L, 2) != 0) {
-		int enum_val;
-		if (string_to_enum(es_CameraModes, enum_val, lua_tostring(L, -2))) {
-			if (readParam<bool>(L, -1, true))
-				modes.emplace(static_cast<CameraMode>(enum_val));
+	if (lua_istable(L, 2)) {
+		while (lua_next(L, 2) != 0) {
+			int enum_val;
+			if (string_to_enum(es_CameraModes, enum_val, lua_tostring(L, -2))) {
+				if (readParam<bool>(L, -1, true))
+					modes.emplace(static_cast<CameraMode>(enum_val));
+			}
+			lua_pop(L, 1);
 		}
-		lua_pop(L, 1);
 	}
-
-	// If mod passed empty table, add CAMERA_MODE_FIRST by default
-	if (modes.size() == 0)
+	
+	// If mod passed empty table or, add all modes by default
+	if (modes.size() == 0) {
 		modes.emplace(CAMERA_MODE_FIRST);
+		modes.emplace(CAMERA_MODE_THIRD);
+		modes.emplace(CAMERA_MODE_THIRD_FRONT);
+	}
 
 	player->setCameraModes(modes);
 	getServer(L)->SendCameraModes(player, modes);

@@ -458,7 +458,7 @@ void Camera::update(LocalPlayer* player, f32 frametime, f32 busytime, f32 tool_r
 	// Reposition the camera for third person view
 	if (m_camera_mode > CAMERA_MODE_FIRST)
 	{
-		if (m_camera_mode == CAMERA_MODE_FRONT)
+		if (m_camera_mode == CAMERA_MODE_THIRD_FRONT)
 			m_camera_direction *= -1;
 
 		my_cp.Y += 2;
@@ -694,19 +694,15 @@ void Camera::toggleCameraMode()
 
 	// If server sends no camera modes, revert to default set of camera modes
 	if (modes.empty()) {
-		warningstream << "Camera::toggleCameraMode() | No server-sent camera modes. Reverting to default..." << std::endl;
-
 		// Use first available camera mode if current camera
 		// mode isn't available in m_default_camera_modes
 		it = m_default_camera_modes.find(m_camera_mode);
 		if (it == m_default_camera_modes.end())
 			it = m_default_camera_modes.begin();
 	} else {
-		warningstream << "Camera::toggleCameraMode() | Server-sent camera modes available. Cycling to next available mode..." << std::endl;
-
 		// If current camera mode not found, or is the last
 		// camera mode, set to first available camera mode
-		auto it = modes.find(m_camera_mode);
+		it = modes.find(m_camera_mode);
 		if (it == modes.end() || ++it == modes.end())
 			it = modes.begin();
 	}
